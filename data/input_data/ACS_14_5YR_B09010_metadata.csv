@@ -1,0 +1,29 @@
+GEO.id,Id
+GEO.id2,Id2
+GEO.display-label,Geography
+HD01_VD01,Estimate; Total:
+HD02_VD01,Margin of Error; Total:
+HD01_VD02,"Estimate; Living in household with Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months:"
+HD02_VD02,"Margin of Error; Living in household with Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months:"
+HD01_VD03,"Estimate; Living in household with Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months: - In family households:"
+HD02_VD03,"Margin of Error; Living in household with Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months: - In family households:"
+HD01_VD04,"Estimate; Living in household with Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months: - In family households: - In married-couple family"
+HD02_VD04,"Margin of Error; Living in household with Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months: - In family households: - In married-couple family"
+HD01_VD05,"Estimate; Living in household with Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months: - In family households: - In male householder, no wife present, family"
+HD02_VD05,"Margin of Error; Living in household with Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months: - In family households: - In male householder, no wife present, family"
+HD01_VD06,"Estimate; Living in household with Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months: - In family households: - In female householder, no husband present, family"
+HD02_VD06,"Margin of Error; Living in household with Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months: - In family households: - In female householder, no husband present, family"
+HD01_VD07,"Estimate; Living in household with Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months: - In nonfamily households"
+HD02_VD07,"Margin of Error; Living in household with Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months: - In nonfamily households"
+HD01_VD08,"Estimate; Living in household with no Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months:"
+HD02_VD08,"Margin of Error; Living in household with no Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months:"
+HD01_VD09,"Estimate; Living in household with no Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months: - In family households:"
+HD02_VD09,"Margin of Error; Living in household with no Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months: - In family households:"
+HD01_VD10,"Estimate; Living in household with no Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months: - In family households: - In married-couple family"
+HD02_VD10,"Margin of Error; Living in household with no Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months: - In family households: - In married-couple family"
+HD01_VD11,"Estimate; Living in household with no Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months: - In family households: - In male householder, no wife present, family"
+HD02_VD11,"Margin of Error; Living in household with no Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months: - In family households: - In male householder, no wife present, family"
+HD01_VD12,"Estimate; Living in household with no Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months: - In family households: - In female householder, no husband present, family"
+HD02_VD12,"Margin of Error; Living in household with no Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months: - In family households: - In female householder, no husband present, family"
+HD01_VD13,"Estimate; Living in household with no Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months: - In nonfamily households"
+HD02_VD13,"Margin of Error; Living in household with no Supplemental Security Income (SSI), cash public assistance income, or Food Stamps/SNAP in the past 12 months: - In nonfamily households"
