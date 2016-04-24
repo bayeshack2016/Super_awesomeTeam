@@ -119,3 +119,7 @@ The following values are valid inputs for the "--productline" flag
     'Other financial service'
 ]
 ```
+## People
+* [Cameron Tuckerman](https://twitter.com/tuckerman)
+* [Clarence Chio](https://twitter.com/cchio)
+* [Nwokedi Idika](https://twitter.com/nwokedi)
