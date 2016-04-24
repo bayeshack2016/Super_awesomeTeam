@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-import pandas as pd
 import argparse
+import pandas as pd
 import vanilla
 
 def main():
@@ -21,9 +21,17 @@ def main():
         help='run "racial" flavored analysis', action='store_true')
     parser.add_argument('-f', '--company', 
         help='if "--isbad" analysis requested, target company to investigate')
+    parser.add_argument('-C', '--companylist', 
+        help='list all companies in alphabetical order', action='store_true')
     # parser.add_argument('-h', '--help', 
     #     help='prints this message')
     args = parser.parse_args()
+
+    if args.companylist and args.complaintsfile is not None:
+        dfc = pd.read_csv(args.complaintsfile)
+        companies = sorted(list(set(dfc.Company)))
+        print('\n'.join(companies))
+        return 
 
     if args.racial is False and args.volume is False:
         if args.complaintsfile is not None and args.demographicsfile is not None:
