@@ -19,8 +19,10 @@ Most notably, we show that our analysis can help identify companies that possibl
 ### Dataset Dependencies
 * CFPB [Consumer Complaint Database](https://data.consumerfinance.gov/views/s6ew-h6mp/rows.csv) in CSV format
      * You can also manually select download options from the [main CFPB data page](http://www.consumerfinance.gov/data-research/consumer-complaints/#download-the-data)
-* **OUR CUSTOM DEMOGRAPHICS DATASET** in CSV format
-    * **How to generate with our script**
+* Census data by zipcode in CSV format
+    1. Manually download the required datasets for the [datasources](zipcodes/datasources.py). These datasets and more are available from [American Fact Finder Download Center](http://factfinder.census.gov/faces/nav/jsf/pages/download_center.xhtml)
+    2. Extract the csv data files into the [data](zipcodes/data) folder.
+    3. Execute `$ python runner.py` to generate a single csv file with demographic information for each zipcode. (Example outputs are available already in the [output](zipcodes/output) directory
 
 ## Usage
 
