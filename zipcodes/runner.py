@@ -52,7 +52,7 @@ def extract_features(datasources):
 
 
 if __name__ == "__main__":
-  OUT_NAME = "xx_all_us.csv"
+  OUT_NAME = "output/xx_all_us.csv"
   AGG_KEY = x_std_aggregation_key
   ZIP_EXT = x_zipcode_feature_extractor
 
