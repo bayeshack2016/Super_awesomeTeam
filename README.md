@@ -29,3 +29,11 @@ $ python setup.py install
     3. Execute `$ python runner.py` to generate a single csv file with demographic information for each zipcode. (Example outputs are available already in the [output](zipcodes/output) directory
 
 ## Usage
+To find mortgage companies potentially discriminating against clients:
+```
+$ fmr -c path/to/complaints.csv -d path/to/zipcodes.csv --ratio --badcompanies --productline Mortgage
+```
+For all options:
+```
+$ fmr -h
+```
