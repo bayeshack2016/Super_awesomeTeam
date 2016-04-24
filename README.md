@@ -51,11 +51,71 @@ Finally, enjoy!
     3. Execute `$ python runner.py` to generate a single csv file with demographic information for each zipcode. (Example outputs are available already in the [output](zipcodes/output) directory
 
 ## Usage
+###Examples:
 To find mortgage companies potentially discriminating against clients:
+```bash
+$ fmr \
+	--complaintsfile ./Consumer_Complaints.csv \
+	--demographicsfile ./zipcodes/output/zz_all_us_race.csv \
+	--ratio \
+	--badcompanies \
+	--productline 'Mortgage' \
+	--pretty
 ```
-$ fmr -c path/to/complaints.csv -d path/to/zipcodes.csv --ratio --badcompanies --productline Mortgage
+Sample output:
+```
+Ratio Analysis:
+[
+    "Common Wealth Mortgage Services",
+    "First American Mitigators, PLLC.",
+    "Oceanside Mortgage Company",
+    ...,
+    "Old National Bank"
+]
+```
+To find out what JPMorgan Chase & Co. financial product lines are suspicious:
+```bash
+$ fmr \
+	--complaintsfile ./Consumer_Complaints.csv \
+	--volume \
+	--isbad \
+	--company 'JPMorgan Chase & Co.' \
+	--pretty
+```
+Sample output: ('true' means suspicious)
+```
+Volume Analysis:
+{
+    "Debt collection": true,
+    "Prepaid card": false,
+    "Mortgage": true,
+    "Credit reporting": false,
+    "Student loan": false,
+    "Money transfers": false,
+    "Bank account or service": true,
+    "Credit card": true,
+    "Payday loan": false,
+    "Consumer Loan": true,
+    "Other financial service": true
+}
 ```
 For all options:
 ```
 $ fmr -h
+```
+The following values are valid inputs for the "--productline" flag
+```
+[
+    'Student loan',
+    'Credit reporting',
+    'Credit card',
+    'Debt collection',
+    'Payday loan',
+    'Consumer Loan',
+    'Bank account or service',
+    'Mortgage',
+    'Money transfers',
+    'Prepaid card',
+    'Other financial service'
+]
 ```
