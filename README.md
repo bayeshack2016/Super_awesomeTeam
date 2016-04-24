@@ -12,6 +12,10 @@ Most notably, we show that our analysis can help identify companies that possibl
 
 ## Installation
 
+```
+$ python setup.py install
+```
+
 ### Software Dependencies
 * Python version >2.7
 * [Pandas](http://pandas.pydata.org/ Pandas) (Python Data Analysis Library)
@@ -25,4 +29,3 @@ Most notably, we show that our analysis can help identify companies that possibl
     3. Execute `$ python runner.py` to generate a single csv file with demographic information for each zipcode. (Example outputs are available already in the [output](zipcodes/output) directory
 
 ## Usage
-
