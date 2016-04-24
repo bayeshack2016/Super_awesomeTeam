@@ -3,8 +3,9 @@
 import json
 import pandas as pd
 import argparse
-import volume
-import ratio
+
+from fmr import volume
+from fmr import ratio
 
 
 def main():
