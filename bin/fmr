@@ -61,8 +61,6 @@ def main():
     if args.ratio is True:
         zipcodes = pd.read_csv(args.demographicsfile)
 
-    print args
-
     if args.volume is True:
         print('\nVolume Analysis:')
         exec_volume_analysis(args, complaints)
