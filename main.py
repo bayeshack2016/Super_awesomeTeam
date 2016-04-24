@@ -15,13 +15,13 @@ def main():
     parser.add_argument('-d', '--demographicsfile', 
         help='the both_all_us_race.csv file')
     parser.add_argument('-v', '--volume', 
-        help='run "volume" flavored analysis', action='store_true')
+        help='run "volume" analysis', action='store_true')
     parser.add_argument('-r', '--ratio', 
-        help='run "ratio" flavored analysis', action='store_true')
+        help='run "ratio" analysis', action='store_true')
     parser.add_argument('-i', '--isbad', 
-        help='run "volume" flavored analysis', action='store_true')
+        help='run "volume" analysis', action='store_true')
     parser.add_argument('-b', '--badcompanies', 
-        help='run "ratio" flavored analysis', action='store_true')
+        help='run "ratio" analysis', action='store_true')
     parser.add_argument('-f', '--company', 
         help='if "--isbad" analysis requested, target company to investigate')
     parser.add_argument('-l', '--productline', 
@@ -37,15 +37,15 @@ def main():
         elif args.complaintsfile is not None:
             args.volume = True
         else:
-            raise ValueError('must specify one of "--volume" or "--ratio" flavored analysis')
+            raise ValueError('must specify one of "--volume" or "--ratio" analysis')
 
     if args.ratio is True and args.demographicsfile is None:
-        raise ValueError('--demographicsfile must be specified if running "--ratio" flavored analysis')
+        raise ValueError('--demographicsfile must be specified if running "--ratio" analysis')
 
     if args.isbad is False and args.badcompanies is False:
         if args.company is not None:
             args.isbad = True
-        elif args.productline is not None:
+        if args.productline is not None:
             args.badcompanies = True
         else:
             raise ValueError('"--company" and/or "--productline" must be specified')
@@ -60,10 +60,14 @@ def main():
     if args.ratio is True:
         zipcodes = pd.read_csv(args.demographicsfile)
 
+    print args
+
     if args.volume is True:
+        print('\nVolume Analysis:')
         exec_volume_analysis(args, complaints)
 
     if args.ratio is True:
+        print('\nRatio Analysis:')
         exec_ratio_analysis(args, complaints, zipcodes)
 
 def pretty_print(x):
