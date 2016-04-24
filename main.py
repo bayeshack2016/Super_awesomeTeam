@@ -1,11 +1,9 @@
 #!/usr/bin/env python
-
 import json
 import pandas as pd
 import argparse
 import volume
 import ratio
-
 
 def main():
     parser = argparse.ArgumentParser(description='Our fun little cute program')
@@ -24,11 +22,27 @@ def main():
         help='run "ratio" analysis', action='store_true')
     parser.add_argument('-f', '--company', 
         help='if "--isbad" analysis requested, target company to investigate')
+    parser.add_argument('-C', '--companylist', 
+        help='list all companies in alphabetical order', action='store_true')
+    parser.add_argument('-P', '--productlist', 
+        help='list all products in alphabetical order', action='store_true')
     parser.add_argument('-l', '--productline', 
         help='if "--badcompanies" analysis requested, target productline to investigate')
     parser.add_argument('-p', '--pretty', 
         help='pretty print JSON output', action='store_true')
     args = parser.parse_args()
+
+    if args.companylist and args.complaintsfile is not None:
+        dfc = pd.read_csv(args.complaintsfile)
+        companies = sorted(list(set(dfc.Company)))
+        print('\n'.join(companies))
+        return 
+
+    if args.productlist and args.complaintsfile is not None:
+        dfc = pd.read_csv(args.complaintsfile)
+        products = sorted(list(set(dfc.Product)))
+        print('\n'.join(products))
+        return 
 
     if args.ratio is False and args.volume is False:
         if args.complaintsfile is not None and args.demographicsfile is not None:
