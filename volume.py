@@ -5,7 +5,6 @@ class Volume(object):
     def __init__(self, complaints):
         self.complaints = complaints 
         self.products = set(complaints.Product)
-        self.companies = set(complaints.Company)
 
     def find_outliers(self, df):
         """Return a list of (positive) outlier companies
@@ -66,4 +65,6 @@ if __name__ == '__main__':
     test = pd.read_csv('Consumer_Complaints.csv')
     v = Volume(test)
     print v.bad_companies('Consumer Loan')
+    # ['Wells Fargo & Company', 'Santander Consumer USA Holdings Inc', 'Ally Financial Inc.', 'Capital One', 'JPMorgan Chase & Co.', 'Citibank', 'Bank of America', 'Synchrony Financial', 'Toyota Motor Credit Corporation', 'U.S. Bancorp', 'GM Financial']
     print v.is_bad('JPMorgan Chase & Co.')
+    # {'Debt collection': True, 'Prepaid card': False, 'Mortgage': True, 'Credit reporting': False, 'Student loan': False, 'Money transfers': False, 'Bank account or service': True, 'Credit card': True, 'Payday loan': False, 'Consumer Loan': True, 'Other financial service': True}
