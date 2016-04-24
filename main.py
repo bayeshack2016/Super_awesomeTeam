@@ -1,8 +1,9 @@
 #!/usr/bin/env python
-
-import argparse
+import json
 import pandas as pd
-import vanilla
+import argparse
+import volume
+import ratio
 
 def main():
     parser = argparse.ArgumentParser(description='Our fun little cute program')
@@ -12,19 +13,23 @@ def main():
     parser.add_argument('-d', '--demographicsfile', 
         help='the both_all_us_race.csv file')
     parser.add_argument('-v', '--volume', 
-        help='run "volume" flavored analysis', action='store_true')
-    parser.add_argument('-r', '--racial', 
-        help='run "racial" flavored analysis', action='store_true')
+        help='run "volume" analysis', action='store_true')
+    parser.add_argument('-r', '--ratio', 
+        help='run "ratio" analysis', action='store_true')
     parser.add_argument('-i', '--isbad', 
-        help='run "volume" flavored analysis', action='store_true')
+        help='run "volume" analysis', action='store_true')
     parser.add_argument('-b', '--badcompanies', 
-        help='run "racial" flavored analysis', action='store_true')
+        help='run "ratio" analysis', action='store_true')
     parser.add_argument('-f', '--company', 
         help='if "--isbad" analysis requested, target company to investigate')
     parser.add_argument('-C', '--companylist', 
         help='list all companies in alphabetical order', action='store_true')
-    # parser.add_argument('-h', '--help', 
-    #     help='prints this message')
+    parser.add_argument('-P', '--productlist', 
+        help='list all products in alphabetical order', action='store_true')
+    parser.add_argument('-l', '--productline', 
+        help='if "--badcompanies" analysis requested, target productline to investigate')
+    parser.add_argument('-p', '--pretty', 
+        help='pretty print JSON output', action='store_true')
     args = parser.parse_args()
 
     if args.companylist and args.complaintsfile is not None:
@@ -33,73 +38,107 @@ def main():
         print('\n'.join(companies))
         return 
 
-    if args.racial is False and args.volume is False:
-        if args.complaintsfile is not None and args.demographicsfile is not None:
-            print('\t"--volume" or "--racial" flavored analysis not specified, executing both')
-        elif args.complaintsfile is not None:
-            print('\t"--volume" or "--racial" flavored analysis not specified, executing only "--volume" flavored analysis')
-        else:
-            raise ValueError('must specify one of "--volume" or "--racial" flavored analysis')
+    if args.productlist and args.complaintsfile is not None:
+        dfc = pd.read_csv(args.complaintsfile)
+        products = sorted(list(set(dfc.Product)))
+        print('\n'.join(products))
+        return 
 
-    if args.racial is True and args.demographicsfile is None:
-        raise ValueError('--demographicsfile must be specified if running "--racial" flavored analysis')
+    if args.ratio is False and args.volume is False:
+        if args.complaintsfile is not None and args.demographicsfile is not None:
+            args.volume = True
+            args.ratio = True
+        elif args.complaintsfile is not None:
+            args.volume = True
+        else:
+            raise ValueError('must specify one of "--volume" or "--ratio" analysis')
+
+    if args.ratio is True and args.demographicsfile is None:
+        raise ValueError('--demographicsfile must be specified if running "--ratio" analysis')
 
     if args.isbad is False and args.badcompanies is False:
         if args.company is not None:
             args.isbad = True
+        if args.productline is not None:
             args.badcompanies = True
-            print('\t"--isbad" or "--badcompanies" analysis not specified, executing both')
         else:
-            args.isbad = False
-            args.badcompanies = True
-            print('\t"--isbad" or "--badcompanies" analysis not specified, executing just "--badcompanies" analysis')
+            raise ValueError('"--company" and/or "--productline" must be specified')
 
     if args.isbad is True and args.company is None:
-        raise ValueError('--company must be specified if running "--isbad" analysis')
+        raise ValueError('"--company" must be specified if running "--isbad" analysis')
 
-    dfc = pd.read_csv(args.complaintsfile)
-    if args.racial is True:
-        dfd = pd.read_csv(args.demographicsfile)
+    if args.badcompanies is True and args.productline is None:
+        raise ValueError('"--productline" must be specified if running "--badcompanies" analysis')
 
-    exec_volume_analysis(args, dfc)
-    # exec_racial_analysis(args, dfc, dfd)
+    complaints = pd.read_csv(args.complaintsfile)
+    if args.ratio is True:
+        zipcodes = pd.read_csv(args.demographicsfile)
 
-def exec_volume_analysis(args, dfc):
+    print args
+
+    if args.volume is True:
+        print('\nVolume Analysis:')
+        exec_volume_analysis(args, complaints)
+
+    if args.ratio is True:
+        print('\nRatio Analysis:')
+        exec_ratio_analysis(args, complaints, zipcodes)
+
+def pretty_print(x):
+    print(json.dumps(x, indent=4, separators=(',', ': ')))
+
+def exec_volume_analysis(args, complaints):
     """Executes volume-flavored analysis on the consumer complaints dataset.
     Returns  
 
     Args:
         args - parsed command line arguments
-        dfc - consumer complaints dataset as a pandas dataframe
+        complaints - consumer complaints dataset as a pandas dataframe
 
     Results:
         no return value
         prints out the results of the analysis
     """
-    v = vanilla.Vanilla(dfc)
-    if args.isbad is True:
-        print(v.is_bad(args.company))
-    if args.badcompanies is True:
-        print(v.bad_companies('Consumer Loan'))
+    v = volume.Volume(complaints)
 
-def exec_racial_analysis(args, dfc, dfd):
-    """Executes racial-flavored analysis on the consumer complaints dataset.
+    if args.isbad is True:
+        if args.pretty:
+            pretty_print(v.is_bad(args.company))
+        else:
+            print(json.dumps(v.is_bad(args.company)))
+
+    if args.badcompanies is True:
+        if args.pretty:
+            pretty_print(v.bad_companies(args.productline))
+        else:
+            print(json.dumps(v.bad_companies(args.productline)))
+
+def exec_ratio_analysis(args, complaints, zipcodes):
+    """Executes ratio-flavored analysis on the consumer complaints dataset.
     Returns  
 
     Args:
         args - parsed command line arguments
-        dfc - consumer complaints dataset as a pandas dataframe
-        dfd - US racial demographics and zipcode dataset as a pandas dataframe
+        complaints - consumer complaints dataset as a pandas dataframe
+        zipcodes - US ratio demographics and zipcode dataset as a pandas dataframe
 
     Results:
         no return value
         prints out the results of the analysis
     """
-    r = Ratio(dfc, dfd)
+    r = ratio.Ratio(complaints, zipcodes)
+
     if args.isbad is True:
-        print(r.is_bad(args.company))
+        if args.pretty:
+            pretty_print(r.is_bad(args.company))
+        else:
+            print(json.dumps(r.is_bad(args.company)))
+
     if args.badcompanies is True:
-        print(r.bad_companies('Consumer Loan'))
+        if args.pretty:
+            pretty_print(r.bad_companies(args.productline))
+        else:
+            print(json.dumps(r.bad_companies(args.productline)))
 
 if __name__ == '__main__':
     main()
