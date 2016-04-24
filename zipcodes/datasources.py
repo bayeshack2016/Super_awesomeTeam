@@ -43,12 +43,15 @@ class DataSource(object):
 
 def median_income_datasource():
   path = "data/ACS_14_5YR_S1901_with_ann.csv"
+
   def extract(row):
     return { "median_income": int(row["HC02_EST_VC02"]) }
+
   def aggregate(values):
     num = len(values)
     total = sum(i["median_income"] for i in values)
     return { "median_income": total / num }
+
   median_income_feature_extractor = extractor.FeatureExtractor(extract, aggregate)
   return DataSource(
     path=path,
@@ -58,6 +61,7 @@ def median_income_datasource():
 
 def race_datasource():
   path = "data/ACS_14_5YR_B02001_with_ann.csv"
+
   def extract(row):
     return {
       "total": float(row["HD01_VD01"]),
@@ -67,6 +71,7 @@ def race_datasource():
       "other": float(row["HD01_VD07"]),
       "two_or_more": float(row["HD01_VD08"])
     }
+
   def aggregate(values):
     total = 0
     white = 0
@@ -88,6 +93,7 @@ def race_datasource():
       "percentage_other": other / (total+1),
       "percentage_two_or_more": two_or_more / (total+1)
     }
+
   feature_extractor = extractor.FeatureExtractor(extract, aggregate)
   return DataSource(
     path=path,
@@ -114,12 +120,14 @@ def employment_datasource():
 
 def sex_datasource():
   path = "data/ACS_14_5YR_S0101_with_ann.csv"
+
   def extract(row):
     return {
       "total": float(row["HC01_EST_VC01"]),
       "male": float(row["HC02_EST_VC01"]),
       "female": float(row["HC03_EST_VC01"])
     }
+
   def aggregate(values):
     total = 0
     male = 0
@@ -132,6 +140,7 @@ def sex_datasource():
       "percentage_male": male / (total+1),
       "percentage_female": female / (total+1)
     }
+
   feature_extractor = extractor.FeatureExtractor(extract, aggregate)
   return DataSource(
     path=path,
@@ -141,6 +150,7 @@ def sex_datasource():
 
 def language_datasource():
   path = "data/ACS_14_5YR_S1601_with_ann.csv"
+
   def extract(row):
     return {
       "total": float(row["HC01_EST_VC01"]),
@@ -149,6 +159,7 @@ def language_datasource():
       "spanish_lang": float(row["HC01_EST_VC04"]),
       "asian_lang": float(row["HC01_EST_VC06"]) * float(row["HC01_EST_VC01"]),
     }
+
   def aggregate(values):
     total = 0
     english_well = 0
@@ -167,6 +178,7 @@ def language_datasource():
       "spanish_lang": spanish_lang,
       "asian_lang": asian_lang
     }
+  
   feature_extractor = extractor.FeatureExtractor(extract, aggregate)
   return DataSource(
     path=path,
