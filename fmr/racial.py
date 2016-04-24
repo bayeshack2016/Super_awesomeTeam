@@ -51,9 +51,9 @@ def anomaly(x, mean, std):
     return x > 0.45
 
 
-class Ratio(object):
+class Racial(object):
     def __init__(self, complaints, zipcodes):
-        """Initialize a malicious ratio finder thingy.
+        """Initialize a malicious racial discrimination finder thingy.
 
         Args:
             complaints: pandas dataframe containing complaints data

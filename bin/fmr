@@ -5,24 +5,24 @@ import pandas as pd
 import argparse
 
 from fmr import volume
-from fmr import ratio
+from fmr import racial
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Our fun little cute program')
+    parser = argparse.ArgumentParser(description='Financial Marketplace Referee')
 
     parser.add_argument('-c', '--complaintsfile', 
         help='the Consumer_Complaints.csv file', required=True)
     parser.add_argument('-d', '--demographicsfile', 
         help='the both_all_us_race.csv file')
     parser.add_argument('-v', '--volume', 
-        help='run "volume" analysis', action='store_true')
-    parser.add_argument('-r', '--ratio', 
-        help='run "ratio" analysis', action='store_true')
+        help='run "--volume" analysis', action='store_true')
+    parser.add_argument('-r', '--racial',
+        help='run "--racial" analysis', action='store_true')
     parser.add_argument('-i', '--isbad', 
-        help='run "volume" analysis', action='store_true')
+        help='run "--isbad" analysis', action='store_true')
     parser.add_argument('-b', '--badcompanies', 
-        help='run "ratio" analysis', action='store_true')
+        help='run "--badcompanies" analysis', action='store_true')
     parser.add_argument('-f', '--company', 
         help='if "--isbad" analysis requested, target company to investigate')
     parser.add_argument('-l', '--productline', 
@@ -31,17 +31,17 @@ def main():
         help='pretty print JSON output', action='store_true')
     args = parser.parse_args()
 
-    if args.ratio is False and args.volume is False:
+    if args.racial is False and args.volume is False:
         if args.complaintsfile is not None and args.demographicsfile is not None:
             args.volume = True
-            args.ratio = True
+            args.racial = True
         elif args.complaintsfile is not None:
             args.volume = True
         else:
-            raise ValueError('must specify one of "--volume" or "--ratio" analysis')
+            raise ValueError('must specify one of "--volume" or "--racial" analysis')
 
-    if args.ratio is True and args.demographicsfile is None:
-        raise ValueError('--demographicsfile must be specified if running "--ratio" analysis')
+    if args.racial is True and args.demographicsfile is None:
+        raise ValueError('--demographicsfile must be specified if running "--racial" analysis')
 
     if args.isbad is False and args.badcompanies is False:
         if args.company is not None:
@@ -58,16 +58,16 @@ def main():
         raise ValueError('"--productline" must be specified if running "--badcompanies" analysis')
 
     complaints = pd.read_csv(args.complaintsfile)
-    if args.ratio is True:
+    if args.racial is True:
         zipcodes = pd.read_csv(args.demographicsfile)
 
     if args.volume is True:
         print('\nVolume Analysis:')
         exec_volume_analysis(args, complaints)
 
-    if args.ratio is True:
-        print('\nRatio Analysis:')
-        exec_ratio_analysis(args, complaints, zipcodes)
+    if args.racial is True:
+        print('\nRacial Analysis:')
+        exec_racial_analysis(args, complaints, zipcodes)
 
 def pretty_print(x):
     print(json.dumps(x, indent=4, separators=(',', ': ')))
@@ -98,20 +98,20 @@ def exec_volume_analysis(args, complaints):
         else:
             print(json.dumps(v.bad_companies(args.productline)))
 
-def exec_ratio_analysis(args, complaints, zipcodes):
-    """Executes ratio-flavored analysis on the consumer complaints dataset.
+def exec_racial_analysis(args, complaints, zipcodes):
+    """Executes racial discrimination analysis on the consumer complaints dataset.
     Returns  
 
     Args:
         args - parsed command line arguments
         complaints - consumer complaints dataset as a pandas dataframe
-        zipcodes - US ratio demographics and zipcode dataset as a pandas dataframe
+        zipcodes - US racial demographics and zipcode dataset as a pandas dataframe
 
     Results:
         no return value
         prints out the results of the analysis
     """
-    r = ratio.Ratio(complaints, zipcodes)
+    r = racial.Racial(complaints, zipcodes)
 
     if args.isbad is True:
         if args.pretty:
