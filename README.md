@@ -1,23 +1,35 @@
-# PROJECT NAME
+# Financial Marketplace Referee (FMR)
 
 ## Context
 
 The Consumer Financial Protection Bureau (CFPB) publishes a public [consumer complaint database](http://www.consumerfinance.gov/data-research/consumer-complaints/ CFPB Consumer Complaint Database) consisting of complaints relating to financial services products and companies. Unscrupulous companies sometimes take advantage of consumers through predatory or discriminatory product offerings and targeting, leading to the consumers lodging complaints against these products and companies to the CFPB. <p>
 
-By enriching the consumer complaint dataset with population demographic statistics sourced from the [American Community Survey](https://www.census.gov/programs-surveys/acs/ American Community Survey), our research shows that there exist notable relationships between companies that have received complaints from those geographical regions with the largest minority populations (on the 5-digit ZIP code granulatity) and the companies that are eventually charged with discriminatory product offerings. <p>
+By enriching the consumer complaint dataset with population demographic statistics sourced from the [American Community Survey](https://www.census.gov/programs-surveys/acs/ American Community Survey), our research shows that there exist notable relationships between companies that have received complaints from those geographical regions with the largest minority populations (on the 5-digit zipcode granulatity) and the companies that are eventually charged with discriminatory product offerings. <p>
 
 Most notably, we show that our analysis can help identify companies that possibly offer predatorial, fraudulent, and racially discriminatory financial products. This can help influence policy and investigation decisions by financial regulatory bodies, and help consumers get better access to data about the suspiciousness of a financial vendor.<p>
 
-## Description=
+## Description
+
+**__Financial Marketplace Referee__** is an application toolset that performs analysis on the latest CFPB consumer complaint database and ASR zipcode demographic statistics to inform the user of companies that are suspected to be involved in financial foul play.
+
+There are two analysis modules that can be executed:
+  1. Complaint Volume
+    * 
+  2. Racial Ratio
+    * 
+
+Each of these modules allow the user to ask two questions:
+  1. Is company X bad?
+    * This suggests to the user if the company is suspected to be offering "bad" products across a range of product lines.
+  2. For a particular product line, (e.g. Mortgage, Student Loan) which companies should I avoid?
+    * This presents the user a list of companies with the anomalous complaints that could indicate foul play.
 
 ## Installation
 
-```
-$ python setup.py install
-```
+Clone this repository **add more details?**
 
 ### Software Dependencies
-* Python version >2.7
+* Python version > 2.6
 * [Pandas](http://pandas.pydata.org/ Pandas) (Python Data Analysis Library)
 
 ### Dataset Dependencies
@@ -29,11 +41,7 @@ $ python setup.py install
     3. Execute `$ python runner.py` to generate a single csv file with demographic information for each zipcode. (Example outputs are available already in the [output](zipcodes/output) directory
 
 ## Usage
-To find mortgage companies potentially discriminating against clients:
-```
-$ fmr -c path/to/complaints.csv -d path/to/zipcodes.csv --ratio --badcompanies --productline Mortgage
-```
-For all options:
-```
-$ fmr -h
+**(add instructions for executing with the included data in the repository)**
+```bash
+fmr
 ```
