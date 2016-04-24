@@ -1,7 +1,7 @@
 import pandas as pd 
 
 
-class Vanilla(object):
+class Volume(object):
     def __init__(self, complaints):
         self.complaints = complaints 
         self.products = set(complaints.Product)
@@ -64,6 +64,6 @@ class Vanilla(object):
 
 if __name__ == '__main__':
     test = pd.read_csv('Consumer_Complaints.csv')
-    v = Vanilla(test)
+    v = Volume(test)
     print v.bad_companies('Consumer Loan')
     print v.is_bad('JPMorgan Chase & Co.')
