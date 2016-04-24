@@ -16,7 +16,7 @@ There are two analysis modules that can be executed:
   1. Complaint Volume
     * 
   2. Racial Ratio
-    * 
+    * This module attempts to find patterns of complaints that could indicate a company is discriminating against minority groups. Joining against the ACS database, this analysis module finds companies with abnormally high numbers of complaints from geographic regions with the largest minority populations. This module can both find potentially risky companies for a given product line, and can score a single company on all product lines which they offer.
 
 Each of these modules allow the user to ask two questions:
   1. Is company X bad?
